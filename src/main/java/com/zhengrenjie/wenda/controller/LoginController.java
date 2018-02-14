@@ -1,6 +1,7 @@
 package com.zhengrenjie.wenda.controller;
 
 import com.zhengrenjie.wenda.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +64,9 @@ public class LoginController {
                     cookie.setMaxAge(3600*24*5);
                 }
                 response.addCookie(cookie);
-//                if (StringUtils.isNotBlank(next)) {
-//                    return "redirect:" + next;
-//                }
+                if (StringUtils.isNotBlank(next)) {
+                    return "redirect:" + next;
+                }
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));
@@ -79,7 +80,8 @@ public class LoginController {
     }
 
     @RequestMapping(path = {"/reglogin"},method = RequestMethod.GET)
-    public String reg(Model model) {
+    public String reg(Model model, @RequestParam(value = "next",required = false) String next) {
+        model.addAttribute("next",next);
         return "login";
     }
 
