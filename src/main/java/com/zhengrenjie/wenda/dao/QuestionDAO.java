@@ -16,9 +16,6 @@ public interface QuestionDAO {
             ") values (#{title},#{content},#{createdDate},#{userId},#{commentCount})"})
     int addQuestion(Question question);
 
-//    @Select({"select",SELECT_FIELDS,"from",TABLE_NAME,"where id=#{id}"})
-//    Question selectById(int id);
-
     List<Question> selectLatestQuestions(@Param("userId") int userId,
                                          @Param("offset") int offset,
                                          @Param("limit") int limit);
@@ -31,6 +28,4 @@ public interface QuestionDAO {
 
     @Delete({"delete from",TABLE_NAME,"where id=#{id}"})
     void deleteQuestion(int id);
-//    @Update({"update",TABLE_NAME,"set password=#{password} where id=#{id}"})
-//    void updatePassword(User user);
 }
