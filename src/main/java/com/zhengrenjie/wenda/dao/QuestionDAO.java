@@ -23,6 +23,12 @@ public interface QuestionDAO {
                                          @Param("offset") int offset,
                                          @Param("limit") int limit);
 
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
+    Question getById(int id);
+
+    @Update({"update ", TABLE_NAME, " set comment_count = #{commentCount} where id=#{id}"})
+    int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
+
     @Delete({"delete from",TABLE_NAME,"where id=#{id}"})
     void deleteQuestion(int id);
 //    @Update({"update",TABLE_NAME,"set password=#{password} where id=#{id}"})
