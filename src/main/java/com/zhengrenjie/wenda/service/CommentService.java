@@ -4,6 +4,7 @@ import com.zhengrenjie.wenda.dao.CommentDAO;
 import com.zhengrenjie.wenda.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -12,7 +13,12 @@ public class CommentService {
     @Autowired
     CommentDAO commentDAO;
 
+    @Autowired
+    SensitiveService sensitiveService;
+
     public void addComment(Comment comment){
+        comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+        comment.setContent(sensitiveService.filter(comment.getContent()));
         commentDAO.addComment(comment);
     }
 

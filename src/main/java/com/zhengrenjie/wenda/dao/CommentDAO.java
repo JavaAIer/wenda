@@ -16,12 +16,15 @@ public interface CommentDAO {
             ") values (#{userId},#{content},#{createdDate},#{entityId},#{entityType},#{status})"})
     int addComment(Comment comment);
 
+
+//    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME,
+//            " where entity_id=#{entityId} and entity_type=#{entityType} order by id desc"})
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME,
-            " where entity_id=#{entityId} and where entity_type=#{entityType} order by created_date desc"})
+        " where entity_id=#{entityId} and entity_type=#{entityType} order by id desc"})
     List<Comment> selectCommentByEntity(@Param("entityId") int entityId,
                                         @Param("entityType") int entityType);
 
-    @Select({"select count(id) from",TABLE_NAME,"where entity_id=#{entityId} and where entity_type=#{entityType}"})
+    @Select({"select count(id) from",TABLE_NAME,"where entity_id=#{entityId} and entity_type=#{entityType}"})
     int getCommentCount(@Param("entityId") int entityId,@Param("entityType") int entityType);
 
     @Update({"update ", TABLE_NAME, " set status=#{status} where entity_id=#{entityId} and entity_type=#{entityType}"})
